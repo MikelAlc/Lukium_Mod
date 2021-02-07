@@ -1,0 +1,27 @@
+{
+	"entity.king_pigman.hurt":
+	{
+		"category":"entity",
+		"subtitle":"entity.king_pigman.hurt",
+		"sounds":[{"name":"nether_villages:entity/king_pigman/hurt", "stream":true}]
+	},
+	"entity.king_pigman.charge":
+	{
+		"category":"entity",
+		"subtitle":"entity.king_pigman.charge",
+		"sounds":[{"name":"nether_villages:entity/king_pigman/charge", "stream":true}]
+	},
+	"entity.king_pigman.death":
+	{
+		"category":"entity",
+		"subtitle":"entity.king_pigman.death",
+		"sounds":[{"name":"nether_villages:entity/king_pigman/death", "stream":true}]
+	},
+	"entity.king_pigman.ambient":
+	{
+		"category":"entity",
+		"subtitle":"entity.king_pigman.ambient",
+		"sounds":[{"name":"nether_villages:entity/king_pigman/ambient", "stream":true}]
+	}
+	
+}

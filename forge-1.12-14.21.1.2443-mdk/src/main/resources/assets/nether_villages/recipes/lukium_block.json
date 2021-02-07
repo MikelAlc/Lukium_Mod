@@ -1,0 +1,24 @@
+{
+    "type": "minecraft:crafting_shaped",
+    
+    "pattern":
+    [
+        "RRR",
+        "RRR",
+        "RRR"
+    ],
+    
+    "key":
+    {
+        "R":
+        {
+            "item": "nether_villages:lukium_ingot"
+        }
+    },
+    
+    "result":
+    {
+        "item": "nether_villages:lukium_block",
+        "count": 1
+    }
+}

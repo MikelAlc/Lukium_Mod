@@ -1,0 +1,6 @@
+{
+    "parent": "item/handheld",
+    "textures":{
+        "layer0": "nether_villages:items/lukium_hoe"
+    }
+}

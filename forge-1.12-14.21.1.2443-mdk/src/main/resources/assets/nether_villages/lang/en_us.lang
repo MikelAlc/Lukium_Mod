@@ -1,0 +1,32 @@
+//Blocks
+tile.ore_nether_gold.name=Nether Gold Ore
+tile.pig_zombie_skull.name=Zombie Pigman Skull
+tile.royal_soul_sand.name=Royal Soul Sand
+tile.ore_nether_lukium.name=Lukium Ore
+tile.lukium_block.name=Lukium Block
+
+//Entities
+entity.pigman.name=Pigman
+entity.king_pigman.name=King Zombie Pigman
+
+//Items
+item.pigman_tusk.name=Pigman Tusk
+item.magma_bar.name=Magma Bar
+item.nether_soup.name=Nether Soup
+item.lukium_ingot.name=Lukium Ingot
+
+//Tools
+item.lukium_hoe.name=Lukium Hoe
+item.lukium_sword.name=Lukium Sword
+item.lukium_pickaxe.name=Lukium Pickaxe
+item.lukium_axe.name=Lukium Axe
+item.lukium_shovel.name=Lukium Shovel
+
+//Armor
+item.lukium_helmet.name=Lukium Helmet
+item.lukium_chestplate.name=Lukium Chestplate
+item.lukium_leggings.name=Lukium Leggings
+item.lukium_boots.name=Lukium Boots
+
+//Tab
+itemGroup.lukium_tab=Lukium
