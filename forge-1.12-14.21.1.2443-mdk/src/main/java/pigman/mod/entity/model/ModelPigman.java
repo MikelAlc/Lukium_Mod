@@ -10,15 +10,6 @@ import net.minecraft.util.math.MathHelper;
  * Created using Tabula 7.0.1
  */
 public class ModelPigman extends ModelBiped {
-    /*
-	public ModelRenderer bipedRightArm;
-    public ModelRenderer bipedRightLeg;
-    public ModelRenderer bipedBody;
-    public ModelRenderer bipedLeftArm;
-    public ModelRenderer bipedLeftLeg;
-    public ModelRenderer bipedHead;
-	*/
-	
     public ModelPigman() {
     	
         this.textureWidth = 64;
@@ -113,17 +104,6 @@ public class ModelPigman extends ModelBiped {
     	this.bipedHead.rotateAngleY = netHeadYaw * 0.017453292F;
     	this.bipedHead.rotateAngleX = headPitch * 0.017453292F;
     	copyModelAngles(this.bipedHead, this.bipedHeadwear);
-    	 //super.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor, entityIn);
-    	
-    	/* Not needed apparently
-    	this.bipedLeftArm.rotateAngleX=MathHelper.cos(limbSwing*0.6662F) * 1.4F * limbSwingAmount;
-    	this.bipedRightLeg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
-    	this.bipedRightArm.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
-    	this.bipedLeftLeg.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
-    	
-    	this.bipedHead.rotateAngleY = netHeadYaw * 0.017453292F;
-    	this.bipedHead.rotateAngleX = headPitch * 0.017453292F;
-		*/
     }
     
     

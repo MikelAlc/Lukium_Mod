@@ -117,7 +117,7 @@ public class EntityPigman extends EntityVillager implements IMerchant, INpc
 	{
 		super(worldIn,0);
 		this.isImmuneToFire = true;
-		/////////UMMMMMM
+		//Should prevent Pigman from unlocking unwanted trades
 		this.setProfession(5);
 		this.setSize(0.6F, 1.95F);
 		//this.onInitialSpawn(this.world.getDifficultyForLocation(new BlockPos(this)), (IEntityLivingData)null);
@@ -139,20 +139,20 @@ public class EntityPigman extends EntityVillager implements IMerchant, INpc
     public void setBlacksmith()
     {
         this.getDataManager().set(ROLE, Integer.valueOf(Roles.BLACKSMITH.ordinal()));
-        this.setItem();
+     
     }
 
     public void setTrader() 
     {
         this.getDataManager().set(ROLE, Integer.valueOf(Roles.TRADER.ordinal()));
-        this.setItem();
+      
         
     }
     
     public void setGuard()
     {
     	 this.getDataManager().set(ROLE, Integer.valueOf(Roles.GUARD.ordinal()));
-         this.setItem();
+        
     }
     
   
@@ -217,10 +217,7 @@ public class EntityPigman extends EntityVillager implements IMerchant, INpc
     	}
     }
     
-    public void setItem() 
-    {
-        //this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.GOLDEN_SWORD));
-    }
+   
 	
     public void onLivingUpdate()
     {
