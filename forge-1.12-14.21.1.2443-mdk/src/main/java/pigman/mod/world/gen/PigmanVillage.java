@@ -7,14 +7,10 @@ import java.util.Random;
 import java.util.UUID;
 
 import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.block.Block;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.monster.EntityPigZombie;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -103,25 +99,7 @@ public class PigmanVillage extends TownObject implements IWorldGenerator
 			        Random rand= new Random();
                     chest.setLootTable(NETHER_CHEST_LOOT_TABLE, rand.nextLong());
                     
-			        /*/Spawns 3 Pigman
-			        EntityPigman entitypigzombie = new EntityPigman(world);
-			        EntityPigman entitypigzombie1 = new EntityPigman(world);
-			        EntityPigman entitypigzombie2 = new EntityPigman(world);
-			        
-		            entitypigzombie.setLocationAndAngles(pos.getX()+6, pos.getY()+1, pos.getZ()+23,0,0);
-		            entitypigzombie1.setLocationAndAngles(pos.getX()+7, pos.getY()+1, pos.getZ()+23,0,0);
-		            entitypigzombie2.setLocationAndAngles(pos.getX()+8, pos.getY()+1, pos.getZ()+23,0,0);
-		            
 
-		    
-		             world.spawnEntity(entitypigzombie);
-		             world.spawnEntity(entitypigzombie1);
-		             world.spawnEntity(entitypigzombie2);
-		             
-		            entitypigzombie.setBlacksmith();
-		            entitypigzombie1.setGuard();
-		            entitypigzombie2.setTrader();
-			        */
 		             
 			        
 				}
