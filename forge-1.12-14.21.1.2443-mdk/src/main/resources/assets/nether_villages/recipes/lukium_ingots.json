@@ -4,13 +4,13 @@
     "ingredients":
     [
  		{
-      		"item": "nether_villages:lukium_block"
+      		"item": "lukium:lukium_block"
    	 	}
    	],
  	
  	"result": 
     {
-        "item": "nether_villages:lukium_ingot",
+        "item": "lukium:lukium_ingot",
         "count": 9
     }
 }

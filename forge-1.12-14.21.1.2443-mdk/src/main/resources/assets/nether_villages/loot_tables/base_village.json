@@ -38,7 +38,7 @@
                 {
                     "type": "item",
                     "weight": 1,
-                    "name": "nether_villages:lukium_ingot",
+                    "name": "lukium:lukium_ingot",
                     "functions": [
                         {
                             "function": "set_count",

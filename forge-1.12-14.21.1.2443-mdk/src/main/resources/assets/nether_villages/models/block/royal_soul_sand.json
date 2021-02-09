@@ -1,6 +1,6 @@
 {
     "parent": "block/cube_all",
     "textures": {
-        "all": "nether_villages:blocks/royal_soul_sand"
+        "all": "lukium:blocks/royal_soul_sand"
     }
 }

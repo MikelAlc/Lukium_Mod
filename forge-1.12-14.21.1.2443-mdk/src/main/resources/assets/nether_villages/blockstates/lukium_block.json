@@ -1,5 +1,5 @@
 {
     "variants":{
-        "normal": {"model": "nether_villages:lukium_block"}
+        "normal": {"model": "lukium:lukium_block"}
     }
 }

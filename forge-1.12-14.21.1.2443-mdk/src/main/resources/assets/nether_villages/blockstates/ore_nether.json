@@ -1,7 +1,7 @@
 {
     "variants": 
     {
-        "variant=lukium": { "model": "nether_villages:ore_nether_lukium" },
-        "variant=gold": { "model": "nether_villages:ore_nether_gold" }
+        "variant=lukium": { "model": "lukium:ore_nether_lukium" },
+        "variant=gold": { "model": "lukium:ore_nether_gold" }
     }
 }

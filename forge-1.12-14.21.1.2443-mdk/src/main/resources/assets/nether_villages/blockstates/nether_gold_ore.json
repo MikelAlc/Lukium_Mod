@@ -1,5 +1,5 @@
 {
     "variants":{
-        "normal": {"model": "nether_villages:nether_gold_ore"}
+        "normal": {"model": "lukium:nether_gold_ore"}
     }
 }

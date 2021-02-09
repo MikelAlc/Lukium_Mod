@@ -12,13 +12,13 @@
     {
         "R":
         {
-            "item": "nether_villages:lukium_ingot"
+            "item": "lukium:lukium_ingot"
         }
     },
     
     "result":
     {
-        "item": "nether_villages:lukium_block",
+        "item": "lukium:lukium_block",
         "count": 1
     }
 }

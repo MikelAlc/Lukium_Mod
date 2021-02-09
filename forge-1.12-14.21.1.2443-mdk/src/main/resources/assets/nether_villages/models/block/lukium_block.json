@@ -1,6 +1,6 @@
 {
     "parent": "block/cube_all",
     "textures": {
-        "all": "nether_villages:blocks/lukium_block"
+        "all": "lukium:blocks/lukium_block"
     }
 }

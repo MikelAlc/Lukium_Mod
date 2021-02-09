@@ -1,6 +1,6 @@
 {
     "parent": "item/handheld",
     "textures":{
-        "layer0": "nether_villages:items/lukium_sword"
+        "layer0": "lukium:items/lukium_sword"
     }
 }

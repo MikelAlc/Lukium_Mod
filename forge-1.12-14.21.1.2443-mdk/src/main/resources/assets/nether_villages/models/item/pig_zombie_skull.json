@@ -1,7 +1,7 @@
 {
     "parent": "item/generated",
     "textures": {
-        "layer0": "nether_villages:items/pig_zombie_skull_front"
+        "layer0": "lukium:items/pig_zombie_skull_front"
     },
     "display": {
         "thirdperson_righthand": {
