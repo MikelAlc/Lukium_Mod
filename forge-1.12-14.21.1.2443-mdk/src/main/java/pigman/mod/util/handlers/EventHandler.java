@@ -54,12 +54,9 @@ public class EventHandler
 						BlockWorldState blockWorldState = patternHelper.translateOffset(0, -i, 0);
 						world.setBlockState(blockWorldState.getPos(), Blocks.AIR.getDefaultState(), 2);
 					}
-					//world.setBlockState(pos.add(0, -1, 0), ModBlocks.player.getDefaultState());
+					
 					world.playEvent(null, 2001, pos.add(0, -1, 0), Block.getIdFromBlock(Blocks.SOUL_SAND) + (0 << 12));
-					//world.setBlockState(pos.add(0, -2, 0), ModBlocks.empty.getDefaultState());
 					world.playEvent(null, 2001, pos.add(0, -2, 0), Block.getIdFromBlock(Blocks.SOUL_SAND) + (0 << 12));
-									
-					//tile.setSkullRotation(MathHelper.floor(event.getPlayer().rotationYaw * 16.0F / 360.0F + 0.5D) & 15);
 					world.notifyNeighborsOfStateChange(pos, Blocks.AIR, true);
 				
 					

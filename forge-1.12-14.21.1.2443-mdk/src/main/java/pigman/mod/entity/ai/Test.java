@@ -2,5 +2,5 @@ package pigman.mod.entity.ai;
 
 public class Test
 {
-	static int test=12;
+	static int test=123;
 }
