@@ -1,0 +1,24 @@
+{
+    "type": "minecraft:crafting_shaped",
+    
+    "pattern":
+    [
+        "RRR",
+        "RRR",
+        "RRR"
+    ],
+    
+    "key":
+    {
+        "R":
+        {
+            "item": "lukium:lukium_ingot"
+        }
+    },
+    
+    "result":
+    {
+        "item": "lukium:lukium_block",
+        "count": 1
+    }
+}

@@ -27,7 +27,7 @@ public class ZombiePigmanLootTable
 	 
 	        if (pool1 != null) 
 	        {
-	            pool1.addEntry(new LootEntryItem(ItemInit.ITEMS.get(ItemInit.ITEMS.size()-1), 10, 0, new LootFunction[0], new LootCondition[] {new RandomChance(0.15f)}, "nether_villages:pig_zombie_skull"));
+	            pool1.addEntry(new LootEntryItem(ItemInit.ITEMS.get(ItemInit.ITEMS.size()-1), 10, 0, new LootFunction[0], new LootCondition[] {new RandomChance(0.15f)}, "lukium:pig_zombie_skull"));
 	        }
 	    }
 	    

@@ -17,7 +17,6 @@ public class RenderPigman extends RenderBiped<EntityPigman>
 	public RenderPigman(RenderManager manager)
 	{
 		super(manager, new ModelPigman(),0.5F);
-		//this.addLayer(new LayerHeldItem(this));
 		
 		LayerBipedArmor layerbipedarmor = new LayerBipedArmor(this)
         {

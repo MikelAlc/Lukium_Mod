@@ -20,26 +20,7 @@ import pigman.mod.util.Reference;
 import pigman.mod.util.interfaces.IHasModel;
 import pigman.mod.world.gen.PigmanVillage;
 import pigman.mod.world.gen.WorldGenCustomOres;
-/* 
-import net.minecraft.block.BlockSkull;
-import pigman.mod.objects.blocks.BlockPigZombieSkull;
-import pigman.mod.objects.items.ItemPigZombieSkull; 
-import net.minecraft.block.Block;
-import net.minecraft.init.Items;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.storage.loot.LootContext;
-import net.minecraft.world.storage.loot.LootEntryItem;
-import net.minecraft.world.storage.loot.LootPool;
-import net.minecraft.world.storage.loot.LootTableList;
-import net.minecraft.world.storage.loot.conditions.LootCondition;
-import net.minecraft.world.storage.loot.functions.LootFunction;
-import net.minecraftforge.event.LootTableLoadEvent;
-import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-*/
-//import pigman.mod.world.gen.WorldGenPigmanVillage;
+
 
 @EventBusSubscriber
 public class RegistryHandler

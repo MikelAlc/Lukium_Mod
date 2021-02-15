@@ -1,6 +1,0 @@
-{
-    "parent": "block/cube_all",
-    "textures": {
-        "all": "nether_villages:blocks/ore_nether_gold"
-    }
-}

@@ -1,0 +1,5 @@
+{
+    "variants":{
+        "normal": {"model": "lukium:lukium_block"}
+    }
+}

@@ -1,0 +1,16 @@
+{ 
+    "type": "minecraft:crafting_shapeless",
+ 
+    "ingredients":
+    [
+ 		{
+      		"item": "lukium:lukium_block"
+   	 	}
+   	],
+ 	
+ 	"result": 
+    {
+        "item": "lukium:lukium_ingot",
+        "count": 9
+    }
+}

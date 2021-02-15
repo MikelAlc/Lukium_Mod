@@ -1,0 +1,7 @@
+{
+    "variants": 
+    {
+        "variant=lukium": { "model": "lukium:ore_nether_lukium" },
+        "variant=gold": { "model": "lukium:ore_nether_gold" }
+    }
+}

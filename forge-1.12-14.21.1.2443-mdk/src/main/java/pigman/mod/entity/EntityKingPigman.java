@@ -75,8 +75,6 @@ public class EntityKingPigman extends EntityPigZombie
         this.targetTasks.addTask(1, new EntityKingPigman.AIHurtByAggressor(this));
         this.targetTasks.addTask(2, new EntityKingPigman.AITargetAggressor(this));
         this.tasks.addTask(0, new EntityAIKingPigmanChargeAttack(this, 5.0D));
-        
-        //this.targetTasks.addTask(1, new EntityAIKingCharge(this, 6.0D, true));
     }
 	
 	@Override
@@ -176,16 +174,6 @@ public class EntityKingPigman extends EntityPigZombie
 	
 	public void makePigZombieAngryAt(EntityPigZombie entitypigzombie) throws Exception
 	{
-		/*  Helped find becomeAngryAt() encrypted name
-			Class<?> c=entitypigzombie.getClass();
-			
-			Method[] ms=c.getDeclaredMethods();
-			
-			for(Method m: ms)
-			{
-				attackingPlayer.sendMessage(new TextComponentString(m.toString()));
-			}
-		*/
 		
 			Method m = entitypigzombie.getClass().getDeclaredMethod("func_70835_c", Entity.class);
 			m.setAccessible(true);
@@ -285,7 +273,7 @@ public class EntityKingPigman extends EntityPigZombie
 		return 2.74F;
     }
 	
-	public static final ResourceLocation KING_PIGMAN_LOOT_TABLE = new ResourceLocation("nether_villages", "king_pigman");
+	public static final ResourceLocation KING_PIGMAN_LOOT_TABLE = new ResourceLocation("lukium", "king_pigman");
 	
 	@Nullable
 	@Override
