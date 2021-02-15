@@ -13,7 +13,6 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import pigman.mod.proxy.CommonProxy;
 import pigman.mod.util.Reference;
 import pigman.mod.util.handlers.RegistryHandler;
-import pigman.mod.village.town.WorldDataInstance;
 import pigman.mod.tabs.CustomTab;
 
 /*Bugs to fix 
@@ -44,8 +43,6 @@ public class Main
 	@Instance
 	public static Main instance;
 	
-	@CapabilityInject(WorldDataInstance.class)
-	public static final Capability<WorldDataInstance> WORLD_DATA_INSTANCE = null;
 	
 	public static final CreativeTabs LukiumTab=new CustomTab("lukium_tab");
 	

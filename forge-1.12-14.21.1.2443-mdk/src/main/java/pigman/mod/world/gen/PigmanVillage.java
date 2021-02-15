@@ -1,16 +1,13 @@
 package pigman.mod.world.gen;
 
 
-import java.util.Iterator;
-import java.util.Map;
+
 import java.util.Random;
-import java.util.UUID;
 
 import net.minecraft.init.Blocks;
-import net.minecraft.nbt.NBTTagCompound;
+
 import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.block.Block;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -19,15 +16,13 @@ import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.IChunkGenerator;
 import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.fml.common.IWorldGenerator;
-import pigman.mod.village.town.TownObject;
-import pigman.mod.entity.EntityPigman;
-import pigman.mod.util.UtilBuild;
-import pigman.mod.village.town.SpawnLocationData;
+
+
 import pigman.mod.world.gen.WorldGenStructure;
 
 
 
-public class PigmanVillage extends TownObject implements IWorldGenerator
+public class PigmanVillage implements IWorldGenerator
 {
 	private static int maxPopulationSize = 10;
 	private int x,y,z;
@@ -36,7 +31,7 @@ public class PigmanVillage extends TownObject implements IWorldGenerator
 	public static final WorldGenStructure HOUSE = new WorldGenStructure("house");
 	public static final WorldGenStructure VILLAGETWO = new WorldGenStructure("villagetwo");
 	
-	@Override
+	
 	public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) 
 	{
 		switch(world.provider.getDimension())
@@ -184,171 +179,11 @@ public class PigmanVillage extends TownObject implements IWorldGenerator
 		
 		return y;
 	}
-	
-	//*************************************************************************************************************************
-	//Data Collecting
-	//*************************************************************************************************************************
-	
-	 public PigmanVillage()
-	 {
-	    super();
-	     generateSpawnCoords();
-	 }
-	 
-	 public PigmanVillage(boolean psuedo)
-	 {
-		 super();
-	 }
-	 
-	
-	
-	//Maybe needed???
-	private void generateSpawnCoords() {
-		 registerSpawnLocation(new SpawnLocationData(getCoordsWithRelFromCorner(2, 3, 8), "hunter"));
-		 registerSpawnLocation(new SpawnLocationData(getCoordsWithRelFromCorner(12, 3, 8), "gatherer"));
-		 registerSpawnLocation(new SpawnLocationData(getCoordsWithRelFromCorner(2, 3, 17), "hunter"));
-		
-	}
-	
-	private BlockPos getCoordsWithRelFromCorner(int i, int j, int k) 
+
+	public static int getMaxPopulationSize()
 	{
-		BlockPos pos = new BlockPos(x+i,y+j,z+k);
-		return pos;
+		return PigmanVillage.maxPopulationSize;
 	}
-	
-	 @Override
-    public EntityLivingBase spawnMemberAtSpawnLocation(SpawnLocationData parData) {
-        super.spawnMemberAtSpawnLocation(parData);
-
-        EntityPigman ent = null;
-
-        
-
-        ent = new EntityPigman(getWorld());
-
-        if (ent != null) {
-            
-        	//TODO: After finishing Pigman
-            //ent.setVillageAndDimID(this.locationID, this.dimID);
-            ent.setPosition(spawn.getX() + parData.coords.getX() + 0.5F, spawn.getY() + parData.coords.getY(), spawn.getZ() + parData.coords.getZ() + 0.5F);
-            getWorld().spawnEntity(ent);
-            parData.entityUUID = ent.getPersistentID();
-            ent.onInitialSpawn(getWorld().getDifficultyForLocation(ent.getPosition()), null);
-
-            //ent.postSpawnGenderFix();
-
-            addEntity(ent);
-        }
-
-        return ent;
-    }
-
-	@Override
-    public void tickUpdate() 
-	 {
-        super.tickUpdate();
-
-        if (getWorld().getTotalWorldTime() % 20 == 0) {
-            System.out.println("Pigman village tick - " + spawn.getX() + ", " + spawn.getZ() + " - E/PE: " + listLoadedEntities.size() + "/" + listPersistantEntities.size());
-        }
-    }
-
-    @Override
-    public void initFirstTime()
-    {
-        super.initFirstTime();
-    }
-    
-    public void spawnEntitiesForce() 
-    {
-        System.out.println("Spawning pigman village population for village: " + spawn);
-        tickMonitorPersistantMembers(true);
-    }
-    
-   
-
-	public static  int getMaxPopulationSize() 
-	{
-		return maxPopulationSize;
-	}
-
-    public void setMaxPopulationSize(int maxPopulationSize) 
-    {
-        PigmanVillage.maxPopulationSize = maxPopulationSize;
-    }	
-    
-    public NBTTagCompound getInitNBTTileEntity() {
-        // TODO Auto-generated method stub
-        return null;
-    }
-
-    @Override
-    public void readFromNBT(NBTTagCompound var1) {
-        super.readFromNBT(var1);
-        
-
-        NBTTagCompound nbtPersistantEntities = var1.getCompoundTag("lookupGenders");
-        Iterator it = nbtPersistantEntities.getKeySet().iterator();
-        while (it.hasNext()) {
-            String entryName = (String) it.next();
-            NBTTagCompound entry = nbtPersistantEntities.getCompoundTag(entryName);
-            UUID uuid = UUID.fromString(entry.getString("UUID"));
-            int gender = entry.getInteger("gender");
-            lookupEntityToGender.put(uuid, gender);
-        }
-
-    }
-
-    @Override
-    public NBTTagCompound writeToNBT(NBTTagCompound var1) {
-        super.writeToNBT(var1);
-        
-
-        NBTTagCompound nbtListPersistantEntities = new NBTTagCompound();
-        int count = 0;
-        for (Map.Entry<UUID, Integer> entry : lookupEntityToGender.entrySet()) {
-            NBTTagCompound nbtEntry = new NBTTagCompound();
-            nbtEntry.setString("UUID", entry.getKey().toString());
-            nbtEntry.setInteger("gender", entry.getValue());
-            nbtListPersistantEntities.setTag("entry_" + count++, nbtEntry);
-        }
-        var1.setTag("lookupGenders", nbtListPersistantEntities);
-        
-        return var1;
-    }
-    
-    @Override
-    public void addEntity(EntityLivingBase ent) {
-        super.addEntity(ent);
-
-        if (ent instanceof EntityPigman) {
-            //EntityPigman koa = (EntityPigman) ent;
-
-            if (lookupEntityToGender.containsKey(ent.getPersistentID())) {
-                //again maybe false positives
-                UtilBuild.dbg("WARNING: adding already existing entitys _persistant ID_ to lookupEntityToGender");
-            } else {
-              //  lookupEntityToGender.put(ent.getPersistentID(), koa.getGender().ordinal());|GR|
-            }
-        }
-    }
-    
-    @Override
-    public void cleanup() {
-        super.cleanup();
-
-        lookupEntityToGender.clear();
-    }
-    
-    @Override
-    public void hookEntityDied(EntityLivingBase ent) {
-        super.hookEntityDied(ent);
-
-        lookupEntityToGender.remove(ent.getPersistentID());
-    }
-
-   
-    
-    
-	
 }
+	
+	

@@ -1,10 +1,8 @@
 package pigman.mod.entity;
 
 import java.lang.reflect.Field;
-import java.util.Collections;
 import java.util.EnumSet;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.annotation.Nullable;
@@ -51,13 +49,12 @@ import net.minecraft.network.datasync.DataParameter;
 import net.minecraft.network.datasync.DataSerializers;
 import net.minecraft.network.datasync.EntityDataManager;
 import net.minecraft.potion.PotionEffect;
-import net.minecraft.tileentity.TileEntity;
-import net.minecraft.tileentity.TileEntityChest;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
-import net.minecraft.util.math.AxisAlignedBB;
+
+
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
@@ -68,15 +65,10 @@ import net.minecraft.village.MerchantRecipeList;
 import net.minecraft.world.DifficultyInstance;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
-import net.minecraftforge.common.DimensionManager;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
-import pigman.mod.Main;
 import pigman.mod.entity.ai.EntityAIPigmanHarvest;
 import pigman.mod.entity.ai.EntityAIPigmanMate;
 import pigman.mod.init.ItemInit;
-import pigman.mod.util.interfaces.ISimulationTickable;
-import pigman.mod.village.town.WorldDataInstance;
-import pigman.mod.world.gen.PigmanVillage;
 
 
 
@@ -92,10 +84,6 @@ public class EntityPigman extends EntityVillager implements IMerchant, INpc
 	
 	 //TODO:Tweeak this 
 	 public static int MAX_HOME_DISTANCE = 12;
-	 
-    private static final int INVALID_DIM = Integer.MAX_VALUE;
-    private int villageID = -1;
-    private int villageDimID = INVALID_DIM;
 	
     private boolean hasHealItem=true;
     private int delayTick=100;
@@ -302,25 +290,7 @@ public class EntityPigman extends EntityVillager implements IMerchant, INpc
         this.targetTasks.addTask(6, AIHurtByTarget);
 	}
 	
-	@Override
-	protected void updateAITasks() {
-	    //cancel villager AI that overrides our home position
-	   
-		//TODO maybe??
-	    //temp until we use AT
-	  // Util.removeTask(this, EntityAIHarvestFarmland.class);
-	    //Util.removeTask(this, EntityAIPlay.class);
-	
-		
-		
-	    monitorHomeVillage();
-	    //adjust home position to chest right nearby for easy item spawning
-	    findAndSetHomeToCloseChest(false);
-	   
-	    
-	    findAndSetTownID(false);
-	
-	}
+
 	
 	@Override
 	protected void applyEntityAttributes() 
@@ -603,8 +573,7 @@ public class EntityPigman extends EntityVillager implements IMerchant, INpc
         compound.setInteger("role_id", this.getDataManager().get(ROLE));
         
 
-        compound.setInteger("village_id", villageID);
-        compound.setInteger("village_dim_id", villageDimID);
+    
 
         compound.setLong("lastTradeTime", lastTradeTime);
 
@@ -632,15 +601,9 @@ public class EntityPigman extends EntityVillager implements IMerchant, INpc
             }
         }*/
 
-        this.villageID = compound.getInteger("village_id");
+        
 
-        //backwards compat
-        if (!compound.hasKey("village_dim_id")) {
-            this.villageDimID = -1;
-        } else {
-            this.villageDimID = compound.getInteger("village_dim_id");
-        }
-
+   
 
 
         
@@ -821,206 +784,10 @@ public class EntityPigman extends EntityVillager implements IMerchant, INpc
 	 }
 
 
-     public void monitorHomeVillage()
-     {
-	     if (villageDimID != INVALID_DIM) {
-	         //if (villageID != -1) {
-	
-	    	 	//TODO too much copying?
-	             //if not in home dimension, full reset
-	             if (this.world.provider.getDimension() != villageDimID) {
-	                 dbg("pigman detected different dimension, zapping memory");
-	                 zapMemory();
-	                 
-	                 addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, 5));
-	             }
-	         //}
-	     }
-	
-	     findOrCreateNewVillage();
-	 }
-     
-     public void zapMemory() 
-     {
-         
-         setHomePosAndDistance(BlockPos.ORIGIN, -1);
-         
-         villageDimID = INVALID_DIM;
-         villageID = -1;
-     }
-     
-     public void findOrCreateNewVillage() 
-     {
-         if ((world.getTotalWorldTime()+this.getEntityId()) % (20*5) != 0) return;
-
-         if (getVillage() == null) 
-         {
-             PigmanVillage village = getVillageWithinRange(64);
-             if (village != null) 
-             {
-                 dbg("Pigman found a village to join: " + village.locationID);
-                 this.setVillageAndDimID(village.locationID, village.dimID);
-             } 
-             else
-             {
-            	 //TODO custom villages
-                 /*check we have a chest locked in
-                 TileEntity tile = world.getTileEntity(getHomePosition());
-                 if ((tile instanceof TileEntityChest))
-                 {
-                     village = createNewVillage(getHomePosition());
-                     if (village != null) 
-                     {
-                         this.setVillageAndDimID(village.locationID, village.dimID);
-                         dbg("Pigman created a new village!");
-                     } else 
-                     {
-                         dbg("village wasnt created, critical error!");
-                     }
-                 } 
-                 else 
-                 {
-                     dbg("no village near and no chest!");
-                 }*/
-             }
-         }
-     }
-     
-     public void findAndSetHomeToCloseChest(boolean force) {
-
-         if (!force && (world.getTotalWorldTime()+this.getEntityId()) % (20*30) != 0) return;
-
-         //validate home position
-         boolean tryFind = false;
-         if (getHomePosition() == null) {
-             tryFind = true;
-         } else {
-             TileEntity tile = world.getTileEntity(getHomePosition());
-             if (!(tile instanceof TileEntityChest)) {
-                 //home position isnt a chest, keep current position but find better one
-                 tryFind = true;
-             }
-         }
-//TODO check this
-         if (tryFind) {
-             int range = 20;
-             for (int x = -range; x <= range; x++) {
-                 for (int y = -range / 2; y <= range / 2; y++) {
-                     for (int z = -range; z <= range; z++) {
-                         BlockPos pos = this.getPosition().add(x, y, z);
-                         TileEntity tile = world.getTileEntity(pos);
-                         if (tile instanceof TileEntityChest) {
-                             //System.out.println("found chest, updating home position to " + pos);
-                             dbg("found chest, updating home position to " + pos);
-                             setHomePosAndDistance(pos, MAX_HOME_DISTANCE);
-                             return;
-                         }
-                     }
-                 }
-             }
-         }
-     }
    
-     public boolean findAndSetTownID(boolean force) {
-         if (!force && (world.getTotalWorldTime()+this.getEntityId()) % (20*30) != 0) return false;
-
-         boolean tryFind = false;
-
-         if (villageID == -1 || villageDimID == INVALID_DIM) {
-             tryFind = true;
-             //make sure return status is correct
-             villageID = -1;
-         }
-
-         if (tryFind) {
-             List<EntityPigman> listEnts = world.getEntitiesWithinAABB(EntityPigman.class, new AxisAlignedBB(this.getPosition()).grow(20, 20, 20));
-             Collections.shuffle(listEnts);
-             for (EntityPigman ent : listEnts) {
-                 if (ent.villageID != -1 && ent.villageDimID != INVALID_DIM) {
-                     this.setVillageAndDimID(ent.villageID, ent.villageDimID);
-                     break;
-                 }
-             }
-         }
-
-         return this.villageID != -1;
-     }
-     
-     public int getVillageID() {
-         return villageID;
-     }
-
-     /*public void setVillageID(int villageID) {
-         this.villageID = villageID;
-     }*/
-
-     public void setVillageAndDimID(int villageID, int villageDimID) {
-         this.villageID = villageID;
-         this.villageDimID = villageDimID;
-     }
-
-     public int getVillageDimID() {
-         return villageDimID;
-     }
-
-     /*public void setVillageDimID(int villageDimID) {
-         this.villageDimID = villageDimID;
-     }*/
-
-     public PigmanVillage getVillage() {
-         if (this.villageDimID == INVALID_DIM || this.villageID == -1) return null;
-
-         World world = DimensionManager.getWorld(villageDimID);
-
-         if (world != null) {
-             WorldDataInstance data = world.getCapability(Main.WORLD_DATA_INSTANCE, null);
-             if (data != null) {
-                 ISimulationTickable sim = data.getLocationByID(villageID);
-                 if (sim instanceof PigmanVillage) {
-                     return (PigmanVillage) sim;
-                 } else {
-                     //System.out.println("critical: couldnt find village by ID");
-                 }
-             } else {
-                 //System.out.println("critical: no world cap");
-             }
-         }
-         return null;
-     }
-
-    
      
      
-     public PigmanVillage getVillageWithinRange(int range) 
-     {
-         World world = this.world;
-
-
-         double distSq = range * range;
-         double closestDist = 99999;
-         PigmanVillage closestVillage = null;
-
-         if (world != null) {
-             WorldDataInstance data = world.getCapability(Main.WORLD_DATA_INSTANCE, null);
-             if (data != null) {
-                 for (ISimulationTickable entry : data.lookupTickingManagedLocations.values()) {
-                     if (entry instanceof PigmanVillage) {
-                         PigmanVillage village = (PigmanVillage) entry;
-                         if (village.getPopulationSize() < PigmanVillage.getMaxPopulationSize()) {
-                             double dist = village.getOrigin().distanceSq(this.getPos());
-                             if (dist < distSq && dist < closestDist) {
-                                 closestDist = dist;
-                                 closestVillage = village;
-                             }
-                         }
-                     }
-                 }
-
-             }
-         }
-
-         return closestVillage;
-     }
+     
      
 	 @Override
 	     public boolean getIsWillingToMate(boolean updateFirst) 
@@ -1090,20 +857,7 @@ public class EntityPigman extends EntityVillager implements IMerchant, INpc
      }
 	*/
      
-	 @Override
-    public void setDead() 
-	 {
-        super.setDead();
-        if (!world.isRemote) 
-        {
-            //System.out.println("hook dead " + this);
-            PigmanVillage village = getVillage();
-            if (village != null) {
-                village.hookEntityDied(this);
-            }
-        }
-    }
- 
+
 	
 	 
 	 public boolean willBone(EntityPigman bonie)

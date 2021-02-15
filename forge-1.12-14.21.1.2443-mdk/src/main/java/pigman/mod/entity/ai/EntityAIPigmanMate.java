@@ -170,20 +170,11 @@ public class EntityAIPigmanMate extends EntityAIBase
           this.mate.setIsWillingToMate(false);
           this.villagerObj.setIsWillingToMate(false);
 
-          //final net.minecraftforge.event.entity.living.BabyEntitySpawnEvent event = new net.minecraftforge.event.entity.living.BabyEntitySpawnEvent(villagerObj, mate, entityvillager);
-          //if (net.minecraftforge.common.MinecraftForge.EVENT_BUS.post(event) || event.getChild() == null) { return; }
-          //entityvillager = event.getChild();
+     
           entityvillager.setGrowingAge(-24000);
           entityvillager.setLocationAndAngles(this.villagerObj.posX, this.villagerObj.posY, this.villagerObj.posZ, 0.0F, 0.0F);
           if (entityvillager instanceof EntityPigman) {
-              ((EntityPigman) entityvillager).setVillageAndDimID(villagerObj.getVillageID(), villagerObj.getVillageDimID());
-              entityvillager.setHomePosAndDistance(villagerObj.getHomePosition(), EntityPigman.MAX_HOME_DISTANCE);
-              PigmanVillage village = villagerObj.getVillage();
-              if (village != null) {
-               
-
-                  village.addEntity(entityvillager);
-              }
+              
 
             
 
