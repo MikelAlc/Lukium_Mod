@@ -273,7 +273,7 @@ public class EntityKingPigman extends EntityPigZombie
 		return 2.74F;
     }
 	
-	public static final ResourceLocation KING_PIGMAN_LOOT_TABLE = new ResourceLocation("nether_villages", "king_pigman");
+	public static final ResourceLocation KING_PIGMAN_LOOT_TABLE = new ResourceLocation("lukium", "king_pigman");
 	
 	@Nullable
 	@Override

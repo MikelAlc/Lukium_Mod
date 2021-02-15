@@ -366,7 +366,7 @@ public class EntityPigman extends EntityVillager implements IMerchant, INpc
         super.playSound(soundIn, volume, pitch);
     }
 	
-	public static final ResourceLocation PIGMAN_LOOT_TABLE = new ResourceLocation("nether_villages", "pigman");
+	public static final ResourceLocation PIGMAN_LOOT_TABLE = new ResourceLocation("lukium", "pigman");
 	
 	@Nullable
 	@Override

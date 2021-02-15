@@ -32,7 +32,7 @@ public class PigmanVillage extends TownObject implements IWorldGenerator
 	private static int maxPopulationSize = 10;
 	private int x,y,z;
 	
-	public static final ResourceLocation NETHER_CHEST_LOOT_TABLE = new ResourceLocation("nether_villages", "base_village");
+	public static final ResourceLocation NETHER_CHEST_LOOT_TABLE = new ResourceLocation("lukium", "base_village");
 	public static final WorldGenStructure HOUSE = new WorldGenStructure("house");
 	public static final WorldGenStructure VILLAGETWO = new WorldGenStructure("villagetwo");
 	
