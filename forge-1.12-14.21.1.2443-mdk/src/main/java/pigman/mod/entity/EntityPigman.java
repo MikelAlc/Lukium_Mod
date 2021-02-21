@@ -112,6 +112,8 @@ public class EntityPigman extends EntityVillager implements IMerchant, INpc
 		
 	}
 	
+	
+	
 	@Override
 	public EntityVillager createChild(EntityAgeable ageable) 
 	{
@@ -314,7 +316,8 @@ public class EntityPigman extends EntityVillager implements IMerchant, INpc
 	protected SoundEvent getHurtSound(DamageSource source) 
 	{
 		Entity yeet=source.getTrueSource();
-		yeet.sendMessage(new TextComponentString(this.getHealth()+" "+delayTick+ " "+hasHealItem));
+		if(yeet instanceof EntityPlayer)
+			yeet.sendMessage(new TextComponentString(this.getHealth()+" "+delayTick+ " "+hasHealItem +" "+ this.rotationYaw+" "+this.rotationPitch));
 		return SoundEvents.ENTITY_PIG_HURT;
 	}
 	
@@ -393,7 +396,7 @@ public class EntityPigman extends EntityVillager implements IMerchant, INpc
 
 	 private void addSoupTrade(MerchantRecipeList list)
 	 {
-		list.add(new MerchantRecipe(new ItemStack(Items.GOLD_INGOT,(int)((Math.random()*(4))+ 3) ),new ItemStack(Items.BOWL),new ItemStack(ItemInit.NETHER_SOUP)));			
+		list.add(new MerchantRecipe(new ItemStack(Items.GOLD_INGOT,(int)((Math.random()*(4))+ 12) ),new ItemStack(Items.BOWL),new ItemStack(ItemInit.NETHER_SOUP)));			
 	 }
 	 
 	 public void initTrades() 
@@ -424,6 +427,7 @@ public class EntityPigman extends EntityVillager implements IMerchant, INpc
 			 addTrade(list,new ItemStack(Items.NETHERBRICK),Items.GOLD_INGOT,1,3,1,1);
 			 addTrade(list,new ItemStack(Items.GHAST_TEAR),Items.GOLD_INGOT,1,1,10,20);
 			 addTrade(list,new ItemStack(Items.GOLD_INGOT),Items.NETHER_STAR,64,64,1,1);
+			 addTrade(list,new ItemStack(ItemInit.LUKIUM_INGOT),Items.NETHER_STAR,3,6,1,1);
 	
 			 
 			 
@@ -534,26 +538,16 @@ public class EntityPigman extends EntityVillager implements IMerchant, INpc
     public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) 
     {
        this.setHomePosAndDistance(this.getPosition(), MAX_HOME_DISTANCE);
-
-   
-
         rollDiceRole();
         rollDiceChild();
         setEquipmentBasedOnDifficulty(difficulty);
-//        findAndSetHomeToCloseChest(true);
-      
-
-        //updateUniqueEntityAI();
-
         IEntityLivingData data = super.onInitialSpawn(difficulty, livingdata);
-
-        /*VillagerRegistry.VillagerProfession koaProfession = new VillagerRegistry.VillagerProfession("koa_profession", "");
-        this.setProfession(koaProfession);*/
-
         initTrades();
 
         return data;
     }
+    
+    
     
     @Override
     public void writeEntityToNBT(NBTTagCompound compound)
