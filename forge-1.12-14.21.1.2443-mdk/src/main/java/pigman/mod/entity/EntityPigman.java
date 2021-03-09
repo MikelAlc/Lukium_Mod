@@ -69,6 +69,7 @@ import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import pigman.mod.entity.ai.EntityAIPigmanHarvest;
 import pigman.mod.entity.ai.EntityAIPigmanMate;
 import pigman.mod.init.ItemInit;
+import pigman.mod.util.Reference;
 
 
 
@@ -316,8 +317,10 @@ public class EntityPigman extends EntityVillager implements IMerchant, INpc
 	protected SoundEvent getHurtSound(DamageSource source) 
 	{
 		Entity yeet=source.getTrueSource();
-		if(yeet instanceof EntityPlayer)
-			yeet.sendMessage(new TextComponentString(this.getHealth()+" "+delayTick+ " "+hasHealItem +" "+ this.rotationYaw+" "+this.rotationPitch));
+		if (yeet instanceof EntityPlayer)
+		{
+			if(Reference.DEBUG) yeet.sendMessage(new TextComponentString(this.getHealth()+" "+delayTick+ " "+hasHealItem +" "+ this.rotationYaw+" "+this.rotationPitch));
+		}
 		return SoundEvents.ENTITY_PIG_HURT;
 	}
 	

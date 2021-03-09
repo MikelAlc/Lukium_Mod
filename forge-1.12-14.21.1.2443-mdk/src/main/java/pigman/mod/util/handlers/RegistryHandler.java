@@ -7,6 +7,8 @@ import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.storage.loot.LootTableList;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import pigman.mod.init.BlockInit;
@@ -62,7 +64,7 @@ public class RegistryHandler
 		}	
 	}
 	
-	public static void preInitRegistries()
+	public static void preInitRegistries(FMLPreInitializationEvent event)
 	{
 		GameRegistry.registerWorldGenerator(new WorldGenCustomOres(),0);
 		GameRegistry.registerWorldGenerator(new PigmanVillage(),0);
@@ -71,9 +73,10 @@ public class RegistryHandler
 		LootTableList.register(new ResourceLocation("modid", "loot_table_name"));
 		GameRegistry.registerTileEntity(TileEntityPigZombieSkull.class, Reference.MODID+":TileEntityZombiePigman");
 		HeadDropRegistry.register(new VanillaHelper());
+		ConfigHandler.registerConfig(event);
 	}
 	
-	public static void initRegistries()
+	public static void initRegistries(FMLInitializationEvent event)
 	{
 		SoundsHandler.registerSounds();
 		ModRecipes.init();

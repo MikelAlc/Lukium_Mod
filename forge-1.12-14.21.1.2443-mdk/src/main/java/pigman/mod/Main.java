@@ -1,5 +1,7 @@
 package pigman.mod;
 
+import java.io.File;
+
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventHandler;
@@ -37,6 +39,7 @@ import pigman.mod.tabs.CustomTab;
 
 public class Main 
 {
+	public static File config;
 	
 	@Instance
 	public static Main instance;
@@ -48,10 +51,10 @@ public class Main
 	public static CommonProxy proxy;
 	
 	@EventHandler
-	public static void preInt(FMLPreInitializationEvent event) {RegistryHandler.preInitRegistries();}
+	public static void preInt(FMLPreInitializationEvent event) {RegistryHandler.preInitRegistries(event);}
 	
 	@EventHandler
-	public static void init(FMLInitializationEvent event){RegistryHandler.initRegistries();}
+	public static void init(FMLInitializationEvent event){RegistryHandler.initRegistries(event);}
 	
 	@EventHandler
 	public static void postInt(FMLPostInitializationEvent event) {}
