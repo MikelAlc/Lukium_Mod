@@ -23,7 +23,7 @@ public class WorldGenCustomOres implements IWorldGenerator
 	public WorldGenCustomOres()
 	{
 		ore_nether_gold = new WorldGenMinable(BlockInit.ORE_NETHER.getDefaultState().withProperty(BlockCustomOre.VARIANT, EnumHandler.EnumType.GOLD),4,BlockMatcher.forBlock(Blocks.NETHERRACK));
-		ore_nether_lukium = new WorldGenMinable(BlockInit.ORE_NETHER.getDefaultState().withProperty(BlockCustomOre.VARIANT, EnumHandler.EnumType.LUKIUM),3,BlockMatcher.forBlock(Blocks.NETHERRACK));
+		ore_nether_lukium = new WorldGenMinable(BlockInit.ORE_NETHER.getDefaultState().withProperty(BlockCustomOre.VARIANT, EnumHandler.EnumType.LUKIUM),4,BlockMatcher.forBlock(Blocks.NETHERRACK));
 	}
 	
 	@Override
@@ -34,7 +34,7 @@ public class WorldGenCustomOres implements IWorldGenerator
 			case -1:
 				//Test fix
 				
-				runGenerator(ore_nether_lukium,world,random,chunkX,chunkZ,4,100,125);
+				runGenerator(ore_nether_lukium,world,random,chunkX,chunkZ,4,110,125);
 				runGenerator(ore_nether_gold, world, random, chunkX, chunkZ, 20, 0, 100);
 				break;
 			case 0:
