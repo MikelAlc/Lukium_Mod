@@ -1,13 +1,13 @@
 [
 {
   "modid": "lukium",
-  "name": "Example Mod",
-  "description": "Example placeholder mod.",
+  "name": "Lukium",
+  "description": "Discount nether update",
   "version": "${version}",
   "mcversion": "${mcversion}",
   "url": "",
   "updateUrl": "",
-  "authorList": ["ExampleDude"],
+  "authorList": ["2VKnown"],
   "credits": "The Forge and FML guys, for making this example",
   "logoFile": "",
   "screenshots": [],

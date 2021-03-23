@@ -86,7 +86,7 @@ public class PigmanTusk extends ItemBase
 				angerTargetUUID.set(zombiePigmen.get(i), null);
 				
 				zombiePigmen.get(i).setRevengeTarget(null);
-				playerIn.sendMessage(new TextComponentString("ayo watch your jet"));
+				if (Reference.DEBUG)playerIn.sendMessage(new TextComponentString("ayo watch your jet"));
 				zombiePigmen.get(i).tasks.addTask(1, new EntityAIAvoidEntity(zombiePigmen.get(i), EntityPlayer.class, 8.0F, 0.6D, 1.2D));
 			 }
 			 

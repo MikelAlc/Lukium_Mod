@@ -8,10 +8,9 @@ public class Reference {
 	public static final String CLIENT = "pigman.mod.proxy.ClientProxy";
 	public static final String COMMON = "pigman.mod.proxy.CommonProxy";
 	
-	public static final boolean DEBUG=true;
+	public static final boolean DEBUG=false;
 	
-	public static final int ENTITY_PIGMAN=100;
-	public static final int ENTITY_KINGPIGMAN=101;
+	
 			
 	
 }
