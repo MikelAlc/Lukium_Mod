@@ -584,33 +584,13 @@ public class EntityPigman extends EntityVillager implements IMerchant, INpc
             this.setHomePosAndDistance(new BlockPos(compound.getInteger("home_X"), compound.getInteger("home_Y"), compound.getInteger("home_Z")), MAX_HOME_DISTANCE);
         }
 
-        
-
-       /* if (compound.hasKey("koa_inventory", 9)) {
-            NBTTagList nbttaglist = compound.getTagList("koa_inventory", 10);
-            //this.initHorseChest();
-
-            for (int i = 0; i < nbttaglist.tagCount(); ++i) {
-                NBTTagCompound nbttagcompound = nbttaglist.getCompoundTagAt(i);
-                int j = nbttagcompound.getByte("Slot") & 255;
-
-                this.inventory.setInventorySlotContents(j, new ItemStack(nbttagcompound));
-            }
-        }*/
-
-        
-
-   
-
-
-        
+    
         this.getDataManager().set(ROLE, compound.getInteger("role_id"));
        
         this.lastTradeTime = compound.getLong("lastTradeTime");
         
         this.setAdditionalAItasks();
        
-        //updateUniqueEntityAI();
     }
     
     private void setAdditionalAItasks()
@@ -787,76 +767,12 @@ public class EntityPigman extends EntityVillager implements IMerchant, INpc
      
      
 	 @Override
-	     public boolean getIsWillingToMate(boolean updateFirst) 
-	     {
-	         this.setIsWillingToMate(true);
-	         return true;
-	     }
-     /*TODO inventory tracking?
-     public boolean tryDumpInventoryIntoHomeChest() {
-         TileEntity tile = world.getTileEntity(this.getHomePosition());
-         if (tile instanceof TileEntityChest) {
-             TileEntityChest chest = (TileEntityChest)tile;
-
-             for (int i = 0; i < this.inventory.getSizeInventory(); ++i) {
-                 ItemStack itemstack = this.inventory.getStackInSlot(i);
-
-                 if (!itemstack.isEmpty()) {
-                     this.inventory.setInventorySlotContents(i, this.addItem(chest, itemstack));
-                 }
-             }
-         }
-         //maybe return false if inventory not emptied entirely
-         return true;
-     }
-
-     @Nullable
-     public ItemStack addItem(TileEntityChest chest, ItemStack stack)
-     {
-         ItemStack itemstack = stack.copy();
-
-         for (int i = 0; i < chest.getSizeInventory(); ++i)
-         {
-             ItemStack itemstack1 = chest.getStackInSlot(i);
-
-             if (itemstack1.isEmpty())
-             {
-                 chest.setInventorySlotContents(i, itemstack);
-                 chest.markDirty();
-                 return ItemStack.EMPTY;
-             }
-
-             if (ItemStack.areItemsEqual(itemstack1, itemstack))
-             {
-                 int j = Math.min(chest.getInventoryStackLimit(), itemstack1.getMaxStackSize());
-                 int k = Math.min(itemstack.getCount(), j - itemstack1.getCount());
-
-                 if (k > 0)
-                 {
-                     itemstack1.grow(k);
-                     itemstack.shrink(k);
-
-                     if (itemstack.getCount() <= 0)
-                     {
-                         chest.markDirty();
-                         return ItemStack.EMPTY;
-                     }
-                 }
-             }
-         }
-
-         if (itemstack.getCount() != stack.getCount())
-         {
-             chest.markDirty();
-         }
-
-         return itemstack;
-     }
-	*/
-     
-
-	
-	 
+	 public boolean getIsWillingToMate(boolean updateFirst) 
+	 {
+        this.setIsWillingToMate(true);
+        return true;
+	 }
+    
 	 public boolean willBone(EntityPigman bonie)
 	 {
         EntityPigman boner = this;
@@ -880,19 +796,5 @@ public class EntityPigman extends EntityVillager implements IMerchant, INpc
 	
 	
 	 
-	 /*
-	 //From Tropicraft mod
-	 public static boolean removeTask(EntityCreature ent, Class taskToReplace) 
-	 {
-		 for (EntityAITasks.EntityAITaskEntry entry : ent.tasks.taskEntries) 
-	     {
-			 if (taskToReplace.isAssignableFrom(entry.action.getClass()))
-	         {
-				 ent.tasks.removeTask(entry.action);
-	             return true;
-	         }
-	     }
-	        
-        return false;
-	 }*/
+	
 }

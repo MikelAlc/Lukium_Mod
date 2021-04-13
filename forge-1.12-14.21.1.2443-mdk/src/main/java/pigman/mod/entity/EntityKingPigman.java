@@ -55,7 +55,7 @@ public class EntityKingPigman extends EntityPigZombie
 		super(worldIn);
 		this.isImmuneToFire=true;
 		this.setSize(1.6F, 2.95F);
-		// TODO Auto-generated constructor stubs
+		
     }
 	
 	 protected void applyEntityAttributes()
