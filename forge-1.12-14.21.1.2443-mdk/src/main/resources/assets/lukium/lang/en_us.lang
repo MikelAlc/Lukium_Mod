@@ -4,6 +4,7 @@ tile.pig_zombie_skull.name=Zombie Pigman Skull
 tile.royal_soul_sand.name=Royal Soul Sand
 tile.ore_nether_lukium.name=Lukium Ore
 tile.lukium_block.name=Lukium Block
+tile.rayshroom.name=Rayshroom
 
 //Entities
 entity.pigman.name=Pigman
@@ -14,6 +15,7 @@ item.pigman_tusk.name=Pigman Tusk
 item.magma_bar.name=Magma Bar
 item.nether_soup.name=Nether Soup
 item.lukium_ingot.name=Lukium Ingot
+item.rayshrom.name=Rayshroom
 
 //Tools
 item.lukium_hoe.name=Lukium Hoe
