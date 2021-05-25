@@ -3,9 +3,11 @@ package pigman.mod.objects.items.food;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.MobEffects;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -23,6 +25,7 @@ public class ItemRayshroom extends ItemCustomFood implements IHasModel,IPlantabl
 	public ItemRayshroom()
 	{
 		super("rayshrom",1,false);
+		
 	
 	}
 
@@ -46,6 +49,13 @@ public class ItemRayshroom extends ItemCustomFood implements IHasModel,IPlantabl
 		else return EnumActionResult.FAIL;
 		
 	}
+	
+	protected void onFoodEaten(ItemStack stack, World worldIn, EntityPlayer player)
+    {
+        if (!worldIn.isRemote)
+        	player.addPotionEffect(new PotionEffect(MobEffects.GLOWING, 100));    
+        
+    }
 	
 	@Override
 	public IBlockState getPlant(IBlockAccess world, BlockPos pos)
