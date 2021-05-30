@@ -32,3 +32,10 @@ item.lukium_boots.name=Lukium Boots
 
 //Tab
 itemGroup.lukium_tab=Lukium
+
+//Potions
+effect.ray_vision=Ray Vision
+potion.effect.ray_vision=Potion of Ray Vision
+splash_potion.effect.ray_vision=Splash Potion of Ray Vision
+lingering_potion.effect.ray_vision=Lingering Potion of Ray Vision
+tipped_arrow.effect.ray_vision=Arrow of Ray Vision
