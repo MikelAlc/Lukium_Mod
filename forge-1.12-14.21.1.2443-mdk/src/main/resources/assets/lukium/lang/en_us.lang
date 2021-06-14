@@ -16,6 +16,8 @@ item.magma_bar.name=Magma Bar
 item.nether_soup.name=Nether Soup
 item.lukium_ingot.name=Lukium Ingot
 item.rayshrom.name=Rayshroom
+item.rayshroom_soup.name=Rayshroom Soup
+item.boars_feast.name=Boar's Feast
 
 //Tools
 item.lukium_hoe.name=Lukium Hoe
@@ -39,3 +41,9 @@ potion.effect.ray_vision=Potion of Ray Vision
 splash_potion.effect.ray_vision=Splash Potion of Ray Vision
 lingering_potion.effect.ray_vision=Lingering Potion of Ray Vision
 tipped_arrow.effect.ray_vision=Arrow of Ray Vision
+
+effect.glow=Glow
+potion.effect.glow=Potion of Glowing
+splash_potion.effect.glow=Splash Potion of Glowing
+lingering_potion.effect.glow=Lingering Potion of Glowing
+tipped_arrow.effect.glow=Arrow of Glowing

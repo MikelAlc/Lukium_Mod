@@ -1,6 +1,7 @@
 package pigman.mod.init;
 
 import net.minecraft.init.Items;
+import net.minecraft.init.MobEffects;
 import net.minecraft.init.PotionTypes;
 import net.minecraft.potion.Potion;
 import net.minecraft.potion.PotionEffect;
@@ -13,12 +14,17 @@ public class PotionInit
 {
 	public static final Potion RAY_VISION_EFFECT = new CustomPotion("ray_vision", false, 2466205, 0, 0);
 	
+	
 	public static final PotionType RAY_VISION= new PotionType("ray_vision",new PotionEffect[] {new PotionEffect(RAY_VISION_EFFECT,200)}).setRegistryName("ray_vision");
 	public static final PotionType LONG_RAY_VISION= new PotionType("ray_vision",new PotionEffect[] {new PotionEffect(RAY_VISION_EFFECT,400)}).setRegistryName("long_ray_vision");
+	public static final PotionType GLOWING= new PotionType("glow",new PotionEffect[] {new PotionEffect(MobEffects.GLOWING,1200)}).setRegistryName("glow");
+	public static final PotionType LONG_GLOWING= new PotionType("glow",new PotionEffect[] {new PotionEffect(MobEffects.GLOWING,2400)}).setRegistryName("long_glow");
+	///heere
 	
 	public static void registerPotions()
 	{
 		registerPotion(RAY_VISION,LONG_RAY_VISION,RAY_VISION_EFFECT);
+		registerPotion(GLOWING,LONG_GLOWING,MobEffects.GLOWING);
 		registerPotionMixes();
 	}
 	
@@ -32,6 +38,10 @@ public class PotionInit
 	private static void registerPotionMixes()
 	{
 		PotionHelper.addMix(RAY_VISION,Items.REDSTONE,LONG_RAY_VISION);
-		PotionHelper.addMix(PotionTypes.AWKWARD,ItemInit.RAYSHROOM,RAY_VISION);
+		PotionHelper.addMix(PotionTypes.AWKWARD,ItemInit.RAYSHROOM,GLOWING);
+		PotionHelper.addMix(GLOWING,Items.REDSTONE,LONG_GLOWING);
+		PotionHelper.addMix(GLOWING,Items.ENDER_EYE,RAY_VISION);
+		PotionHelper.addMix(LONG_GLOWING,Items.ENDER_EYE,LONG_RAY_VISION);
+		
 	}
 }

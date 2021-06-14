@@ -1,5 +1,6 @@
 package pigman.mod.objects.items.food;
 
+import net.minecraft.block.BlockSoulSand;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -40,7 +41,7 @@ public class ItemRayshroom extends ItemCustomFood implements IHasModel,IPlantabl
 	{
 		ItemStack stack = player.getHeldItem(hand);
 		IBlockState state= worldIn.getBlockState(pos);
-		if(facing==EnumFacing.UP && player.canPlayerEdit(pos.offset(facing), facing, stack) && state.getBlock()==Blocks.SOUL_SAND && worldIn.isAirBlock(pos.up()))
+		if(facing==EnumFacing.UP && player.canPlayerEdit(pos.offset(facing), facing, stack) && state.getBlock() instanceof BlockSoulSand && worldIn.isAirBlock(pos.up()))
 		{
 			worldIn.setBlockState(pos.up(),BlockInit.RAYSHROOM.getDefaultState());
 			stack.shrink(1);

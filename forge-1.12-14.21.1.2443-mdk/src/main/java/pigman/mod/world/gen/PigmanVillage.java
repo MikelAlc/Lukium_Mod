@@ -72,35 +72,34 @@ public class PigmanVillage implements IWorldGenerator
 		
 		
 		
-		if(world.getWorldType() != WorldType.FLAT)
+		
+		if (isAreaClear(pos,world))
 		{
-			if (isAreaClear(pos,world))
+			if(random.nextInt(chance) == 0 &&  y>34 )
 			{
-				if(random.nextInt(chance) == 0 &&  y>34 )
-				{
-					BlockPos pos2 = new BlockPos(x,y-1,z);
-					generator.generate(world, random, pos2);
-					//world.setBlockState(pos2,Blocks.GOLD_BLOCK.getDefaultState(), 2);
-					
-					
-					genPigmen(world, pos2);
-					setChestsLootTable(world, pos2);
-					/*
-					BlockPos chestPos= new BlockPos(x,y+3,z);
-					world.setBlockState(chestPos,Blocks.CHEST.getDefaultState(),2);
-			        TileEntityChest chest = (TileEntityChest) world.getTileEntity(chestPos);
-			        
-			        
-			        
-			        Random rand= new Random();
-                    chest.setLootTable(NETHER_CHEST_LOOT_TABLE, rand.nextLong());
-                    */
-                    
-		             
-			        
-				}
+				BlockPos pos2 = new BlockPos(x,y-1,z);
+				generator.generate(world, random, pos2);
+				//world.setBlockState(pos2,Blocks.GOLD_BLOCK.getDefaultState(), 2);
+				
+				
+				genPigmen(world, pos2);
+				setChestsLootTable(world, pos2);
+				/*
+				BlockPos chestPos= new BlockPos(x,y+3,z);
+				world.setBlockState(chestPos,Blocks.CHEST.getDefaultState(),2);
+		        TileEntityChest chest = (TileEntityChest) world.getTileEntity(chestPos);
+		        
+		        
+		        
+		        Random rand= new Random();
+                chest.setLootTable(NETHER_CHEST_LOOT_TABLE, rand.nextLong());
+                */
+                
+	             
+		        
 			}
 		}
+		
 		
 	}
 	
