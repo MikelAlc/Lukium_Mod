@@ -72,35 +72,34 @@ import pigman.mod.init.ItemInit;
 import pigman.mod.util.Reference;
 
 
-//Test
 public class EntityPigman extends EntityVillager implements IMerchant, INpc
 {
-	 private static final DataParameter<Integer> ROLE = EntityDataManager.createKey(EntityPigman.class, DataSerializers.VARINT);
+	private static final DataParameter<Integer> ROLE = EntityDataManager.createKey(EntityPigman.class, DataSerializers.VARINT);
 	
-	 private boolean areAdditionalTasksSet;
-	 public boolean debug = false;
-	 private EntityAIBase AIHurtByTarget;
+	private boolean areAdditionalTasksSet;
+	public boolean debug = false;
+	private EntityAIBase AIHurtByTarget;
 	 
-	 private long lastTradeTime = 0;
+	private long lastTradeTime = 0;
 	
-	 //TODO:Tweeak this 
-	 public static int MAX_HOME_DISTANCE = 12;
+	//TODO:Tweeak this 
+	public static int MAX_HOME_DISTANCE = 12;
 	
     private boolean hasHealItem=true;
     private int delayTick=100;
     private int eatTick=20;
     
  
-	 public enum Roles
-	 {
-		 BLACKSMITH,
-		 GUARD,
-	     TRADER;
+	public enum Roles
+	{
+        BLACKSMITH,
+		GUARD,
+	    TRADER;
 		 
-		 private static final Map<Integer, Roles> lookup = new HashMap<>();
-	     static { for(Roles e : EnumSet.allOf(Roles.class)) { lookup.put(e.ordinal(), e); } }
-	     public static Roles get(int intValue) { return lookup.get(intValue); }
-     }
+		private static final Map<Integer, Roles> lookup = new HashMap<>();
+	    static { for(Roles e : EnumSet.allOf(Roles.class)) { lookup.put(e.ordinal(), e); } }
+	    public static Roles get(int intValue) { return lookup.get(intValue); }
+    }
 
 	public EntityPigman(World worldIn)
 	{
@@ -113,47 +112,46 @@ public class EntityPigman extends EntityVillager implements IMerchant, INpc
 		
 	}
 	
-	
-	
-	@Override
-	public EntityVillager createChild(EntityAgeable ageable) 
-	{
-        
-        EntityPigman entityvillager = new EntityPigman(this.world);
-        entityvillager.onInitialSpawn(this.world.getDifficultyForLocation(new BlockPos(entityvillager)), (IEntityLivingData)null);
-       
-        
-        return entityvillager;
-	}
-	
-
-    public void setBlacksmith()
+	@Nullable
+    @Override
+    public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) 
     {
-        this.getDataManager().set(ROLE, Integer.valueOf(Roles.BLACKSMITH.ordinal()));
-     
+        this.setHomePosAndDistance(this.getPosition(), MAX_HOME_DISTANCE);
+        rollDiceRole();
+        rollDiceChild();
+        setEquipmentBasedOnDifficulty(difficulty);
+        IEntityLivingData data = super.onInitialSpawn(difficulty, livingdata);
+        initTrades();
+
+        return data;
     }
 
-    public void setTrader() 
-    {
-        this.getDataManager().set(ROLE, Integer.valueOf(Roles.TRADER.ordinal()));
-      
-        
+    public void rollDiceRole() { 
+        this.getDataManager().set(ROLE, this.world.rand.nextInt(Roles.values().length)); 
+    }
+	
+     public void rollDiceChild() {
+        int childChance = 20;
+        if (childChance >= this.world.rand.nextInt(100)) 
+            this.setGrowingAge(-24000);
     }
     
-    public void setGuard()
-    {
-    	 this.getDataManager().set(ROLE, Integer.valueOf(Roles.GUARD.ordinal()));
+    @Override
+    public EntityVillager createChild(EntityAgeable ageable) {
+
+        EntityPigman entityVillager = new EntityPigman(this.world);
+        entityVillager.onInitialSpawn(this.world.getDifficultyForLocation(new BlockPos(entityVillager)), (IEntityLivingData)null);
         
+        return entityVillager;
     }
-    
   
     @Override
     protected void setEquipmentBasedOnDifficulty(DifficultyInstance difficulty)
     {
-    	int i = this.rand.nextInt(3);
+        int i = this.rand.nextInt(3);
     	
     	//Weapon
-    		if(this.getRole()==Roles.GUARD)
+    		if(this.isGuard())
     		{
     			if(this.world.getDifficulty() == EnumDifficulty.HARD)
     				this.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(ItemInit.LUKIUM_AXE));
@@ -167,7 +165,7 @@ public class EntityPigman extends EntityVillager implements IMerchant, INpc
     
     	
     	//Armor
-    	if(this.getRole()==Roles.GUARD) 
+    	if(this.isGuard()) 
     	{
     		if(this.world.getDifficulty() == EnumDifficulty.EASY)
     		{
@@ -254,19 +252,30 @@ public class EntityPigman extends EntityVillager implements IMerchant, INpc
 	        this.lastTradeTime = lastTradeTime;
 	  }
 	  
-	 public Roles getRole() 
-	 {
-	    return Roles.get(this.getDataManager().get(ROLE));
-	 }
+	public Roles getRole() 
+	{
+        return Roles.get(this.getDataManager().get(ROLE));
+	}
 	
+    private boolean isGuard() {
+        return this.getRole()==Roles.GUARD;
+    }
+
+    private boolean isBlacksmith(){
+        return this.getRole() == Roles.BLACKSMITH;
+    }
+
+    private boolean isTrader(){
+        return this.getRole() == Roles.TRADER;
+    }
 
 	 
 	@Override
 	public float getEyeHeight()
     {
 		return this.isChild() ? 0.81F : 1.74F;
-	
 	}
+
 	@Override
 	protected void initEntityAI()
 	{
@@ -330,9 +339,9 @@ public class EntityPigman extends EntityVillager implements IMerchant, INpc
 		return SoundEvents.ENTITY_PIG_DEATH;
 	}
 	
-	 @Override
+	@Override
     public void playSound(SoundEvent soundIn, float volume, float pitch) 
-	 {
+	{
 
         //cancel villager trade sounds
         if (soundIn == SoundEvents.ENTITY_VILLAGER_YES || soundIn == SoundEvents.ENTITY_VILLAGER_NO) {
@@ -405,7 +414,7 @@ public class EntityPigman extends EntityVillager implements IMerchant, INpc
 	 public void initTrades() 
 	 {
 		 MerchantRecipeList list = new MerchantRecipeList();
-		 if (getRole() == Roles.BLACKSMITH) 
+		 if (this.isBlacksmith()) 
 		 {
 			addTrade(list,new ItemStack(ItemInit.LUKIUM_HELMET),ItemInit.LUKIUM_INGOT,1,1,5,5);
 			addTrade(list,new ItemStack(ItemInit.LUKIUM_CHESTPLATE),ItemInit.LUKIUM_INGOT,1,1,8,8);
@@ -417,7 +426,7 @@ public class EntityPigman extends EntityVillager implements IMerchant, INpc
 			list.add(new MerchantRecipe(new ItemStack(ItemInit.LUKIUM_INGOT,1),new ItemStack(Items.BLAZE_ROD,2),new ItemStack(ItemInit.LUKIUM_SHOVEL)));	
 			list.add(new MerchantRecipe(new ItemStack(ItemInit.LUKIUM_INGOT,2),new ItemStack(Items.BLAZE_ROD,2),new ItemStack(ItemInit.LUKIUM_HOE)));
 		 }
-		 else if (getRole() == Roles.TRADER) 
+		 else if (this.isTrader()) 
 		 {
 			 
 			 addSoupTrade(list);
@@ -478,27 +487,6 @@ public class EntityPigman extends EntityVillager implements IMerchant, INpc
         this.tasks.addTask(curPri++, new EntityAITradePlayer(this));
     }*/
     
-   
-
-	public void rollDiceRole() 
-    {
-        int randValRole = this.world.rand.nextInt(Roles.values().length);
-        if (randValRole == Roles.BLACKSMITH.ordinal()) {
-            this.setBlacksmith();
-        } else if (randValRole == Roles.TRADER.ordinal()) {
-            this.setTrader();
-        } else if(randValRole==Roles.GUARD.ordinal()){
-        	this.setGuard();
-        }
-   
-    }
-    
-    public void rollDiceChild() {
-        int childChance = 20;
-        if (childChance >= this.world.rand.nextInt(100)) {
-            this.setGrowingAge(-24000);
-        }
-    }
     
     @Override
     protected void onGrowingAdult() 
@@ -536,19 +524,7 @@ public class EntityPigman extends EntityVillager implements IMerchant, INpc
     	return ret;
     }
     
-    @Nullable
-    @Override
-    public IEntityLivingData onInitialSpawn(DifficultyInstance difficulty, @Nullable IEntityLivingData livingdata) 
-    {
-       this.setHomePosAndDistance(this.getPosition(), MAX_HOME_DISTANCE);
-        rollDiceRole();
-        rollDiceChild();
-        setEquipmentBasedOnDifficulty(difficulty);
-        IEntityLivingData data = super.onInitialSpawn(difficulty, livingdata);
-        initTrades();
-
-        return data;
-    }
+  
     
     
     
@@ -600,36 +576,27 @@ public class EntityPigman extends EntityVillager implements IMerchant, INpc
             this.areAdditionalTasksSet = true;
 
             if (this.isChild())
-            {
                 this.tasks.addTask(8, new EntityAIPlay(this, 0.32D));
-            }
             else
-            {
                 this.tasks.addTask(6, new EntityAIPigmanHarvest(this, 0.6D));
-               
-            }
         }
     }
     
-    protected boolean canDespawn()
-    {
-        return false;
-    }
+    protected boolean canDespawn() { return false; }
     
     @Override
     public ITextComponent getDisplayName()
     {
     	String name="";
     	
-    	if (getRole() == Roles.BLACKSMITH) 
-    		name+="Blacksmith Pigman";
-    	else if (getRole()==Roles.TRADER) 
-    		name+="Trader Pigman";
-    	else 
-    		name+="Guard Pigman";
+    	if (this.isBlacksmith()) 
+    		name+="Blacksmith ";
+    	else if (this.isTrader()) 
+    		name+="Trader ";
+    	else if (this.isGuard())
+    		name+="Guard ";
     	
-    	
-    	
+    	name += "Pigman";
     			
     	return new TextComponentTranslation(name);  	 
     }
@@ -696,59 +663,45 @@ public class EntityPigman extends EntityVillager implements IMerchant, INpc
    }
 
 
- @Override
-   public boolean attackEntityFrom(DamageSource source, float amount) {
-       boolean result = super.attackEntityFrom(source, amount);
+    @Override
+    public boolean attackEntityFrom(DamageSource source, float amount) {
+        boolean result = super.attackEntityFrom(source, amount);
 
-       return result;
-   }
+        return result;
+    }
 
- public void onStruckByLightning(EntityLightningBolt lightningBolt)
- {
-     if (!this.world.isRemote && !this.isDead)
-     {
-         EntityPigZombie entitypigzombie = new EntityPigZombie(this.world);
-         entitypigzombie.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.GOLDEN_SWORD));
-         entitypigzombie.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, this.rotationPitch);
-         entitypigzombie.setNoAI(this.isAIDisabled());
+    private void spawnPigZombie(){
+        EntityPigZombie entityPigZombie = new EntityPigZombie(this.world);
+        entityPigZombie.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.GOLDEN_SWORD));
+        entityPigZombie.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, this.rotationPitch);
+        entityPigZombie.setNoAI(this.isAIDisabled());
 
-         if (this.hasCustomName())
-         {
-             entitypigzombie.setCustomNameTag(this.getCustomNameTag());
-             entitypigzombie.setAlwaysRenderNameTag(this.getAlwaysRenderNameTag());
-         }
+        if (this.hasCustomName())
+        {
+            entityPigZombie.setCustomNameTag(this.getCustomNameTag());
+            entityPigZombie.setAlwaysRenderNameTag(this.getAlwaysRenderNameTag());
+        }
 
-         this.world.spawnEntity(entitypigzombie);
-         this.setDead();
-     }
- }
+        this.world.spawnEntity(entityPigZombie);
+
+    }
+
+    public void onStruckByLightning(EntityLightningBolt lightningBolt)
+    {
+        if (!this.world.isRemote && !this.isDead)
+        {
+            this.spawnPigZombie();
+            this.setDead();
+        }
+    }
  
  	@Override
-	 public void onDeath(DamageSource cause)
-	 {
-	     
-	     Entity entity = cause.getTrueSource();
-	
-	     if (entity != null)
-	     {
-	         if (entity instanceof EntityZombie)
-	         {
-	        	 EntityPigZombie entitypigzombie = new EntityPigZombie(this.world);
-	             entitypigzombie.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.GOLDEN_SWORD));
-	             entitypigzombie.setLocationAndAngles(this.posX, this.posY, this.posZ, this.rotationYaw, this.rotationPitch);
-	             entitypigzombie.setNoAI(this.isAIDisabled());
-	
-	             if (this.hasCustomName())
-	             {
-	                 entitypigzombie.setCustomNameTag(this.getCustomNameTag());
-	                 entitypigzombie.setAlwaysRenderNameTag(this.getAlwaysRenderNameTag());
-	             }
-	             
-	             this.world.spawnEntity(entitypigzombie);
-	         }
-	         
-	     }
-	 
+	public void onDeath(DamageSource cause)
+	{	     
+        Entity entity = cause.getTrueSource();
+	    
+        if (entity != null && entity instanceof EntityZombie)    
+            this.spawnPigZombie();
 	     
 	     super.onDeath(cause);
 	 }
@@ -760,11 +713,6 @@ public class EntityPigman extends EntityVillager implements IMerchant, INpc
         }
 	 }
 
-
-   
-     
-     
-     
      
 	 @Override
 	 public boolean getIsWillingToMate(boolean updateFirst) 
