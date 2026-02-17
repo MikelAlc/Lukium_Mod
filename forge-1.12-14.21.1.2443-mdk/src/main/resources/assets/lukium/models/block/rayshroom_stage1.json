@@ -1,0 +1,6 @@
+{
+    "parent": "block/crop",
+    "textures": {
+        "crop": "lukium:blocks/rayshroom_stage_1"
+    }
+}

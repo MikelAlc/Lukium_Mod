@@ -15,6 +15,7 @@ import pigman.mod.init.BlockInit;
 import pigman.mod.init.EntityInit;
 import pigman.mod.init.ItemInit;
 import pigman.mod.init.ModRecipes;
+import pigman.mod.init.PotionInit;
 import pigman.mod.libs.HeadDropRegistry;
 import pigman.mod.libs.VanillaHelper;
 import pigman.mod.tileentity.TileEntityPigZombieSkull;
@@ -74,6 +75,7 @@ public class RegistryHandler
 		GameRegistry.registerTileEntity(TileEntityPigZombieSkull.class, Reference.MODID+":TileEntityZombiePigman");
 		HeadDropRegistry.register(new VanillaHelper());
 		ConfigHandler.registerConfig(event);
+		PotionInit.registerPotions();
 	}
 	
 	public static void initRegistries(FMLInitializationEvent event)

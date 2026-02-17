@@ -12,8 +12,11 @@ import net.minecraft.item.ItemArmor.ArmorMaterial;
 import net.minecraftforge.common.util.EnumHelper;
 import pigman.mod.objects.items.ItemBase;
 import pigman.mod.objects.items.PigmanTusk;
+import pigman.mod.objects.items.food.ItemBoarsFeast;
 import pigman.mod.objects.items.food.ItemMagmaBar;
 import pigman.mod.objects.items.food.ItemNetherSoup;
+import pigman.mod.objects.items.food.ItemRayshroom;
+import pigman.mod.objects.items.food.ItemRayshroomSoup;
 import pigman.mod.objects.tools.ToolAxe;
 import pigman.mod.objects.tools.ToolHoe;
 import pigman.mod.objects.tools.ToolPickaxe;
@@ -52,6 +55,9 @@ public class ItemInit
 	//Food
 	public static final Item MAGMA_BAR = new ItemMagmaBar();
 	public static final Item NETHER_SOUP= new ItemNetherSoup();
+	public static final Item RAYSHROOM= new ItemRayshroom();
+	public static final Item RAYSHROOM_SOUP= new ItemRayshroomSoup(); 
+	public static final Item BOARS_FEAST= new ItemBoarsFeast();
 	
 
 }

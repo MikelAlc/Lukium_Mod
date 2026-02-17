@@ -1,0 +1,22 @@
+{ 
+    "type": "minecraft:crafting_shapeless",
+ 
+    "ingredients":
+    [
+ 		{
+      		"item": "lukium:magma_bar"
+   	 	},
+ 		{
+      		"item": "lukium:rayshroom_soup"
+   	 	},
+   	 	 		{
+      		"item": "lukium:nether_soup"
+   	 	}
+   	],
+ 	
+ 	"result": 
+    {
+        "item": "lukium:boars_feast",
+        "count": 1
+    }
+}

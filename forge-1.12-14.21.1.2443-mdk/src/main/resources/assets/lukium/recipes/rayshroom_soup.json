@@ -1,0 +1,28 @@
+{
+    "type": "minecraft:crafting_shaped",
+    
+    "pattern":
+    [
+        "RRR",
+        "RRR",
+        " B "
+    ],
+    
+    "key":
+    {
+        "R":
+        {
+            "item": "lukium:rayshrom"
+        },
+        "B":
+        {
+        	"item": "minecraft:bowl"
+        }
+    },
+    
+    "result":
+    {
+        "item": "lukium:rayshroom_soup",
+        "count": 1
+    }
+}

@@ -15,6 +15,9 @@ import pigman.mod.util.Reference;
 import pigman.mod.util.handlers.RegistryHandler;
 import pigman.mod.tabs.CustomTab;
 
+
+//Rayshroom lightin
+//Rayshroom planted in royal soul sand
 @Mod(modid=Reference.MODID, name = Reference.NAME, version=Reference.VERSION)
 
 public class Main 

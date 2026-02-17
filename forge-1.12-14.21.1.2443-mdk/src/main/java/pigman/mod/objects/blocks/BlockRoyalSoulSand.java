@@ -35,7 +35,7 @@ public class BlockRoyalSoulSand extends BlockSoulSand implements IHasModel
 		Main.proxy.registerItemRenderer(Item.getItemFromBlock(this),0,"Inventory");
 	}
 	
-	 public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn)
+	public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn)
     {
         entityIn.motionX *= 0.4D;
         entityIn.motionZ *= 0.4D;
