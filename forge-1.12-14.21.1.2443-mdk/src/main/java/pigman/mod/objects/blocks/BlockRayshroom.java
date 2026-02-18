@@ -27,8 +27,6 @@ public class BlockRayshroom extends BlockCrops
 	
 	private static final AxisAlignedBB[] RAYSHROOM_AABB = new AxisAlignedBB[] {new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.125D,1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.125D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D,1.0D, 0.375D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.375D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.5D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.5D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.5D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.625D, 1.0D)};
 
-
-	
 	public BlockRayshroom(String name)
 	{
 		super();
@@ -37,7 +35,6 @@ public class BlockRayshroom extends BlockCrops
 		setSoundType(SoundType.PLANT);
 		setHardness(1.0F);
 		setHarvestLevel("hoe",0);
-		this.lightValue=3;
 
 		BlockInit.BLOCKS.add(this);
 		ItemInit.ITEMS.add(new ItemBlock(this).setRegistryName(this.getRegistryName()));
@@ -58,77 +55,33 @@ public class BlockRayshroom extends BlockCrops
 	
 	@Override
 	public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
-	{
-			
+	{	
 		return RAYSHROOM_AABB[(Integer)state.getValue(this.getAgeProperty()).intValue()];
-		
 	}
 	
 	@Override
 	public boolean canBlockStay(World worldIn, BlockPos pos, IBlockState state)
-	{
-		
-		
-		IBlockState soil = worldIn.getBlockState(pos.down());
-		
+	{	
+		IBlockState soil = worldIn.getBlockState(pos.down());	
         return soil.getBlock() instanceof BlockSoulSand;
 	}
 	
-	@Override
-	public void grow(World worldIn, BlockPos pos, IBlockState state)
-	{
-		List<Entity> listEntities =worldIn.getLoadedEntityList();
-        for (Entity ent : listEntities) 
-        {
-            if (ent instanceof EntityPlayer) 
-            {
-            	int i=(Integer)state.getValue(this.getAgeProperty()).intValue();
-            	ent.sendMessage(new TextComponentString(String.valueOf(i)));
-            }
-        }
-        
-		super.grow(worldIn, pos, state);
-		state=worldIn.getBlockState(pos);
-		
-		
-        for (Entity ent : listEntities) 
-        {
-            if (ent instanceof EntityPlayer) 
-            {
-            	int i=(Integer)state.getValue(this.getAgeProperty()).intValue();
-            	ent.sendMessage(new TextComponentString(String.valueOf(i)));
-            }
-        }
-        
-		
-		int i=(Integer)state.getValue(this.getAgeProperty()).intValue();
-		
-		if(i<2) 
-			this.lightValue=3;
-		else if(i<4)
-			this.lightValue=6;
-		else if(i<7)
-			this.lightValue=9;
-		else if(i==7)
-			this.lightValue=12;
-	
-	}
+
 	
 	@Override
-	public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand)
+	public int getLightValue(IBlockState state, IBlockAccess world, BlockPos pos)
 	{
-		super.updateTick(worldIn, pos, state, rand);
-		state=worldIn.getBlockState(pos);
-		int i=(Integer)state.getValue(this.getAgeProperty()).intValue();
 		
-		if(i<2) 
-			this.lightValue=3;
-		else if(i<4)
-			this.lightValue=6;
-		else if(i<7)
-			this.lightValue=9;
-		else if(i==7)
-			this.lightValue=12;
+		int age=state.getValue(this.getAgeProperty());
+		
+		if(age<2) 
+			return 3;
+		else if(age<4)
+			return 6;
+		else if(age<7)
+			return 9;
+		
+		return 12;
 	}
 
 	
