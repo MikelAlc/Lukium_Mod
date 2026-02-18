@@ -14,16 +14,16 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
+
 import pigman.mod.Main;
 import pigman.mod.init.BlockInit;
 import pigman.mod.init.ItemInit;
 import pigman.mod.objects.blocks.item.ItemBlockVariants;
 import pigman.mod.util.handlers.EnumHandler;
-import pigman.mod.util.interfaces.IHasModel;
 import pigman.mod.util.interfaces.IMetaName;
 
 
-public class BlockCustomOre extends BlockBase implements IMetaName,IHasModel
+public class BlockCustomOre extends BlockBase implements IMetaName
 {
 	
 	private String dimension;

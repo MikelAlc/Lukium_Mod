@@ -3,10 +3,7 @@ package pigman.mod.objects.items.food;
 import net.minecraft.block.BlockSoulSand;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.MobEffects;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.EnumActionResult;
@@ -17,10 +14,10 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.common.IPlantable;
-import pigman.mod.init.BlockInit;
-import pigman.mod.util.interfaces.IHasModel;
 
-public class ItemRayshroom extends ItemCustomFood implements IHasModel,IPlantable
+import pigman.mod.init.BlockInit;
+
+public class ItemRayshroom extends ItemCustomFood implements IPlantable
 {
 
 	public ItemRayshroom()

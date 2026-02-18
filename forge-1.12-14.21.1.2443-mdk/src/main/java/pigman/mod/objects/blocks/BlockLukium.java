@@ -4,9 +4,8 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.Item;
 import pigman.mod.Main;
-import pigman.mod.util.interfaces.IHasModel;
 
-public class BlockLukium extends BlockBase implements IHasModel
+public class BlockLukium extends BlockBase 
 {
 	public BlockLukium(String name)
 	{
