@@ -12,6 +12,7 @@ public class ConfigHandler
 	
 	public static int ENTITY_PIGMAN=387;
 	public static int ENTITY_KINGPIGMAN=388;
+	public static int ENTITY_PUG=389;
 	
 	public static void init(File file)
 	{
@@ -23,7 +24,8 @@ public class ConfigHandler
 		config.addCustomCategoryComment(category, "Set the ID's for the entities to ensure that they don't clash with other mod's ids");
 		ENTITY_PIGMAN = config.getInt("ENTITY_Pigman_ID", category, 387, 120, 999, "ID for the Pigman Entity");
 		ENTITY_KINGPIGMAN = config.getInt("ENTITY_Pigman_ID", category, 388, 120, 999, "ID for the King Pigman Entity");
-		
+		ENTITY_PUG = config.getInt("ENTITY_Pug_ID", category, 389, 120, 999, "ID for the Lukium Pug");
+
 		config.save();
 	}
 	
