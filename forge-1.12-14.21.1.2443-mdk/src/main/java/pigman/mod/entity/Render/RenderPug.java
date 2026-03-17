@@ -4,6 +4,7 @@ import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.entity.RenderWolf;
 import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.util.ResourceLocation;
+import pigman.mod.entity.model.ModelPug;
 import pigman.mod.util.Reference;
 
 public class RenderPug extends RenderWolf {
@@ -12,6 +13,7 @@ public class RenderPug extends RenderWolf {
 	public RenderPug(RenderManager rendermanagerIn) 
 	{
 		super(rendermanagerIn);
+		this.mainModel = new ModelPug();
 		
 	}
 	
