@@ -36,7 +36,7 @@ public class UtilBuild {
         }
     }
 
-    //TODO: replace with server side friendly in jar path usage when ready
+   
     public static String getSaveFolderPath() {
         return "./";
     }

@@ -7,8 +7,10 @@ import net.minecraftforge.fml.client.registry.IRenderFactory;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import pigman.mod.entity.EntityKingPigman;
 import pigman.mod.entity.EntityPigman;
+import pigman.mod.entity.EntityPug;
 import pigman.mod.entity.Render.RenderKingPigman;
 import pigman.mod.entity.Render.RenderPigman;
+import pigman.mod.entity.Render.RenderPug;
 import pigman.mod.renderers.TileEntityPigZombieSkullRenderer;
 import pigman.mod.tileentity.TileEntityPigZombieSkull;
 
@@ -32,6 +34,15 @@ public class RenderHandler
 			public Render<? super EntityKingPigman> createRenderFor(RenderManager manager) 
 			{
 				return new RenderKingPigman(manager);
+			}
+		});
+
+		RenderingRegistry.registerEntityRenderingHandler(EntityPug.class, new IRenderFactory<EntityPug>()
+		{
+			@Override
+			public Render<? super EntityPug> createRenderFor(RenderManager manager) 
+			{
+				return new RenderPug(manager);
 			}
 		});
 		

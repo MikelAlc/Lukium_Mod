@@ -16,6 +16,7 @@ public class EntityInit
 	{
 		registryEntity("pigman",EntityPigman.class,ConfigHandler.ENTITY_PIGMAN,50,14387850,9793114);
 		registryEntity("king_pigman",EntityKingPigman.class,ConfigHandler.ENTITY_KINGPIGMAN,50,14387850,16768768);
+		registryEntity("pug", EntityPug.class, ConfigHandler.ENTITITY_PUG, 50, 000000, 1315860);
 	}
 	
 	public static void registryEntity(String name,Class<? extends Entity> entity,int id, int range, int color1, int color2)
